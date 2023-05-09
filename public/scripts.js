@@ -46,3 +46,45 @@ document.getElementById("nutrition-form").addEventListener("submit", function (e
         console.error("Please correct the errors in the form before submitting.");
     }
 });
+
+document.getElementById("nutrition-form").addEventListener("submit", function (event) {
+    // Prevent the default form submission behavior
+    event.preventDefault();
+
+    // Extract the user input from the form
+    const goal = document.getElementById("goal").value;
+    const diet = document.getElementById("diet").value;
+    const workout = document.getElementById("workout").value;
+
+    // Perform client-side validation (if not already done)
+
+    // Send the AJAX request to the server
+    fetch("/api/recommendations", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ goal, diet, workout }),
+    })
+        .then((response) => {
+            if (!response.ok) {
+                throw new Error("An error occurred while processing the request.");
+            }
+            return response.json();
+        })
+        .then((recommendations) => {
+            // Display the recommendations on the frontend
+            const recommendationsDiv = document.getElementById("recommendations");
+            recommendationsDiv.innerHTML = ""; // Clear the previous recommendations, if any
+
+            recommendations.forEach((recommendation) => {
+                const p = document.createElement("p");
+                p.textContent = `${recommendation.foodName} - ${recommendation.calories} calories, ${recommendation.protein}g protein, ${recommendation.carbs}g carbs, ${recommendation.fat}g fat`;
+                recommendationsDiv.appendChild(p);
+            });
+        })
+        .catch((error) => {
+            console.error(error);
+            alert("An error occurred while processing your request. Please try again.");
+        });
+});
