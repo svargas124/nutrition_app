@@ -1,0 +1,40 @@
+Create tables for each entity, defining columns for their attributes:
+
+Users:
+
+user_id (INT, PK): Unique identifier for each user.
+username (VARCHAR): User's chosen username.
+email (VARCHAR): User's email address.
+password (VARCHAR): User's hashed password.
+age (INT): User's age.
+gender (VARCHAR): User's gender.
+activity_level (VARCHAR): User's activity level (e.g., sedentary, active, very active, etc.).
+Food_Items:
+
+food_id (INT, PK): Unique identifier for each food item.
+food_name (VARCHAR): Name of the food item.
+protein (FLOAT): Protein content per 100g.
+carbohydrates (FLOAT): Carbohydrate content per 100g.
+fats (FLOAT): Fat content per 100g.
+calories (FLOAT): Caloric content per 100g.
+micronutrients (TEXT): Micronutrient content per 100g in JSON format.
+Dietary_Preferences:
+
+preference_id (INT, PK): Unique identifier for each dietary preference.
+preference_name (VARCHAR): Name of the dietary preference (e.g., vegetarian, vegan, gluten-free, etc.).
+Nutrition_Goals:
+
+goal_id (INT, PK): Unique identifier for each nutrition goal.
+goal_name (VARCHAR): Name of the nutrition goal (e.g., muscle gain, fat loss, etc.).
+User_Food_Log:
+
+log_id (INT, PK): Unique identifier for each food log entry.
+user_id (INT, FK): Foreign key referencing the Users table.
+food_id (INT, FK): Foreign key referencing the Food_Items table.
+serving_size (FLOAT): The serving size in grams of the consumed food item.
+date (DATE): Date of the food log entry.
+Recommendations:
+
+recommendation_id (INT, PK): Unique identifier for each recommendation.
+user_id (INT, FK): Foreign key referencing the Users table.
+food_id (INT, FK): Foreign key referencing the Food_Items table.
