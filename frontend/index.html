@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SV Nutrition App</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>SV Nutrition App</h1>
+        <p>Get personalized nutrition recommendations based on your fitness goals, dietary preferences, and workout routines.</p>
+    </header>
+    
+    <main>
+        <section id="input-form">
+            <h2>Personalize Your Recommendations</h2>
+            <form id="nutrition-form">
+                <div class="form-group">
+                    <label for="goal">Fitness Goal:</label>
+                    <select id="goal" name="goal">
+                        <option value="muscle_gain">Muscle Gain</option>
+                        <option value="fat_loss">Fat Loss</option>
+                        <!-- Add more options as needed -->
+                    </select>
+                </div>
+            
+                <div class="form-group">
+                    <label for="diet">Dietary Preference:</label>
+                    <select id="diet" name="diet">
+                        <option value="vegan">Vegan</option>
+                        <option value="vegetarian">Vegetarian</option>
+                        <!-- Add more options as needed -->
+                    </select>
+                </div>
+            
+                <div class="form-group">
+                    <label for="workout">Workout Routine:</label>
+                    <input type="text" id="workout" name="workout" placeholder="Enter your workout routine">
+                </div>
+            
+                <div class="form-group">
+                    <input type="submit" value="Get Recommendations">
+                </div>
+            </form>
+        </section>
+        
+        <section id="results">
+            <h2>Personalized Nutrition Recommendations</h2>
+            <div id="loading-indicator" class="hidden">Loading...</div>
+            <div id="error-message" class="hidden"></div>
+            <ul id="recommendations-container"></ul>
+        </section>
+    </main>
+    
+    <footer>
+        <p>&copy; 2023 SV Nutrition App. All rights reserved.</p>
+    </footer>
+    
+    <script src="scripts.js"></script>
+</body>
+</html>
