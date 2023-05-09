@@ -9,16 +9,17 @@
 <body>
     <header>
         <h1>SV Nutrition App</h1>
-        <p>Get personalized nutrition recommendations based on your fitness goals, dietary preferences, and workout routines.</p>
+        <!-- <p>Get personalized nutrition recommendations based on your fitness goals, dietary preferences, and workout routines.</p> -->
     </header>
     
     <main>
         <section id="input-form">
-            <h2>Personalize Your Recommendations</h2>
+            <!-- <h2>Personalize Your Recommendations</h2> -->
             <form id="nutrition-form">
                 <div class="form-group">
                     <label for="goal">Fitness Goal:</label>
                     <select id="goal" name="goal">
+                        <option value="maintain_current_composition">Maintain Current Composition</option>
                         <option value="muscle_gain">Muscle Gain</option>
                         <option value="fat_loss">Fat Loss</option>
                         <!-- Add more options as needed -->
@@ -30,15 +31,19 @@
                     <select id="diet" name="diet">
                         <option value="None">None</option>
                         <option value="vegan">Vegan</option>
-                        <option value="vegetarian">Vegetarian</option>
+                        <option value="pescatarian">Pescatarian</option>
+                        <option value="Flexitarian">Flexitarian</option>
+                        <option value="Paleo">Paleo</option>
+                        <option value="Keto">Keto</option>
+                        <option value="Whole Foods">Whole Foods</option>
                         <!-- Add more options as needed -->
                     </select>
                 </div>
             
-                <div class="form-group">
+                <!-- <div class="form-group">
                     <label for="workout">Workout Routine:</label>
                     <input type="text" id="workout" name="workout" placeholder="Enter your workout routine">
-                </div>
+                </div> -->
             
                 <div class="form-group">
                     <input type="submit" value="Get Recommendations">
@@ -47,7 +52,7 @@
         </section>
         
         <section id="results">
-            <h2>Personalized Nutrition Recommendations</h2>
+            <!-- <h2>Personalized Nutrition Recommendations</h2> -->
             <div id="loading-indicator" class="hidden">Loading...</div>
             <div id="error-message" class="hidden"></div>
             <ul id="recommendations-container"></ul>
