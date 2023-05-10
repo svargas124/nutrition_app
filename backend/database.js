@@ -26,8 +26,8 @@ async function getFoodItems() {
 async function createUser(userData) {
   const connection = await connect();
 
-  const query = 'INSERT INTO users (username, email, password, goal, diet, workout) VALUES (?, ?, ?, ?, ?, ?)';
-  const values = [userData.username, userData.email, userData.password, userData.goal, userData.diet, userData.workout];
+  const query = 'INSERT INTO users (username, email, password, goal, diet) VALUES (?, ?, ?, ?, ?)';
+  const values = [userData.username, userData.email, userData.password, userData.goal, userData.diet];
 
   await connection.execute(query, values);
 
@@ -48,8 +48,8 @@ async function getUserById(userId) {
 async function updateUser(userId, updatedUserData) {
   const connection = await connect();
 
-  const query = 'UPDATE users SET username = ?, email = ?, password = ?, goal = ?, diet = ?, workout = ? WHERE id = ?';
-  const values = [updatedUserData.username, updatedUserData.email, updatedUserData.password, updatedUserData.goal, updatedUserData.diet, updatedUserData.workout, userId];
+  const query = 'UPDATE users SET username = ?, email = ?, password = ?, goal = ?, diet = ?, WHERE id = ?';
+  const values = [updatedUserData.username, updatedUserData.email, updatedUserData.password, updatedUserData.goal, updatedUserData.diet, userId];
 
   await connection.execute(query, values);
 

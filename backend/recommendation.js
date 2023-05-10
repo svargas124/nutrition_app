@@ -9,7 +9,7 @@ function filterFoodItems(foodItems, diet) {
     });
 }
 
-function calculateMacronutrientNeeds(goal, workout) {
+function calculateMacronutrientNeeds(goal) {
     // Your logic to calculate the user's macronutrient needs based on their goal and workout routine
     // You might need to consider factors such as the user's body weight, activity level, etc.
     // ...
@@ -28,7 +28,7 @@ function rankFoodItems(foodItems, macronutrientNeeds) {
     return foodItemsRanked;
 }
 
-async function getRecommendations(goal, diet, workout) {
+async function getRecommendations(goal, diet) {
     // Fetch food items from the USDA API
     const foodItems = await fetchFoodData('chicken'); // replace 'chicken' with the actual query
 
@@ -36,7 +36,7 @@ async function getRecommendations(goal, diet, workout) {
     const filteredFoodItems = filterFoodItems(foodItems, diet);
 
     // Calculate the user's macronutrient needs based on their fitness goal and workout routine
-    const macronutrientNeeds = calculateMacronutrientNeeds(goal, workout);
+    const macronutrientNeeds = calculateMacronutrientNeeds(goal);
 
     // Rank the filtered food items based on how well they match the user's macronutrient needs
     const rankedFoodItems = rankFoodItems(filteredFoodItems, macronutrientNeeds);

@@ -34,22 +34,26 @@ app.get('/api/test', async (req, res) => {  // Test endpoint
   }
 });
 
-app.post('/api/recommendations', (req, res) => {
-  // Extract data from the request body
-  const { goal, diet, workout } = req.body;
-
-  // Call the getRecommendations function to get the nutrition recommendations
-  getRecommendations(goal, diet, workout)
-    .then(recommendations => {
-      // Send the recommendations back to the client as a JSON object
-      res.json(recommendations);
-    })
-    .catch(error => {
-      // Handle any errors that occurred during the process
+app.post('/api/recommendations', async (req, res) => {
+    try {
+      // Here we define a static food recommendation
+      const foodRecommendation = {
+        name: "Chicken Breast",
+        nutritionalValue: {
+          calories: 165,
+          protein: 31,
+          carbs: 0,
+          fats: 3.6
+        }
+      };
+  
+      // Send the static recommendation back to the client as a JSON object
+      res.json(foodRecommendation);
+    } catch (error) {
       console.error(error);
       res.status(500).json({ error: 'An error occurred while processing the request.' });
-    });
-});
+    }
+  }); 
 
 app.post('/api/users', async (req, res) => {
   try {
