@@ -1,4 +1,5 @@
 const { getNutritionRecommendations } = require('./database');
+const { fetchFoodData } = require('./usdaApi');
 
 function filterFoodItems(foodItems, diet) {
     // Filter the food items based on the user's dietary preferences
@@ -28,8 +29,8 @@ function rankFoodItems(foodItems, macronutrientNeeds) {
 }
 
 async function getRecommendations(goal, diet, workout) {
-    // Fetch food items from the database
-    const foodItems = await getFoodItems();
+    // Fetch food items from the USDA API
+    const foodItems = await fetchFoodData('chicken'); // replace 'chicken' with the actual query
 
     // Filter food items based on the user's dietary preferences
     const filteredFoodItems = filterFoodItems(foodItems, diet);

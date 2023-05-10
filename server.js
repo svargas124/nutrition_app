@@ -14,6 +14,7 @@ const {
   rankFoodItems,
   getRecommendations
 } = require('./backend/recommendation');
+const { fetchFoodData } = require('./backend/usdaApi');  // Import the function
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -23,12 +24,19 @@ app.use(bodyParser.json());
 // Serve static files (HTML, CSS, JS) from the 'public' folder
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.get('/api/test', async (req, res) => {  // Test endpoint
+  try {
+    const data = await fetchFoodData('chicken');
+    res.json(data);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'An error occurred while fetching the data.' });
+  }
+});
+
 app.post('/api/recommendations', (req, res) => {
   // Extract data from the request body
   const { goal, diet, workout } = req.body;
-
-  // Validate the incoming data (you may reuse the validation functions from the frontend)
-  // ...
 
   // Call the getRecommendations function to get the nutrition recommendations
   getRecommendations(goal, diet, workout)
