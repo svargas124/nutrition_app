@@ -3,9 +3,9 @@ const mysql = require('mysql2/promise');
 async function connect() {
   const connection = await mysql.createConnection({
     host: 'localhost',
-    user: 'your-username',
-    password: 'your-password',
-    database: 'your-database'
+    user: 'root',
+    password: 'password123',
+    database: 'nutrition_2'
   });
 
   return connection;
@@ -14,7 +14,7 @@ async function connect() {
 async function getFoodItems() {
   const connection = await connect();
 
-  const query = 'SELECT * FROM food_items';
+  const query = 'SELECT * FROM FoodItems';
 
   const [rows] = await connection.execute(query);
 
@@ -26,8 +26,8 @@ async function getFoodItems() {
 async function createUser(userData) {
   const connection = await connect();
 
-  const query = 'INSERT INTO users (username, email, password, goal, diet) VALUES (?, ?, ?, ?, ?)';
-  const values = [userData.username, userData.email, userData.password, userData.goal, userData.diet];
+  const query = 'INSERT INTO Users (username, email, password) VALUES (?, ?, ?)';
+  const values = [userData.username, userData.email, userData.password];
 
   await connection.execute(query, values);
 
@@ -37,7 +37,7 @@ async function createUser(userData) {
 async function getUserById(userId) {
   const connection = await connect();
 
-  const query = 'SELECT * FROM users WHERE id = ?';
+  const query = 'SELECT * FROM Users WHERE ID = ?';
   const [rows] = await connection.execute(query, [userId]);
 
   await connection.end();
@@ -48,8 +48,8 @@ async function getUserById(userId) {
 async function updateUser(userId, updatedUserData) {
   const connection = await connect();
 
-  const query = 'UPDATE users SET username = ?, email = ?, password = ?, goal = ?, diet = ?, WHERE id = ?';
-  const values = [updatedUserData.username, updatedUserData.email, updatedUserData.password, updatedUserData.goal, updatedUserData.diet, userId];
+  const query = 'UPDATE Users SET username = ?, email = ?, password = ? WHERE ID = ?';
+  const values = [updatedUserData.username, updatedUserData.email, updatedUserData.password, userId];
 
   await connection.execute(query, values);
 
@@ -59,7 +59,7 @@ async function updateUser(userId, updatedUserData) {
 async function deleteUser(userId) {
   const connection = await connect();
 
-  const query = 'DELETE FROM users WHERE id = ?';
+  const query = 'DELETE FROM Users WHERE ID = ?';
 
   await connection.execute(query, [userId]);
 

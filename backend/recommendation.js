@@ -1,36 +1,62 @@
-const { getNutritionRecommendations } = require('./database');
-const { fetchFoodData } = require('./usdaApi');
+const { getFoodItems } = require('./database');
 
 function filterFoodItems(foodItems, diet) {
     // Filter the food items based on the user's dietary preferences
     return foodItems.filter(foodItem => {
-        // Your filtering logic here, e.g., exclude specific food types for certain diets
-        // ...
+        switch (diet) {
+            case 'Vegan':
+                return foodItem.Vegan;
+            case 'Vegetarian':
+                return foodItem.Vegetarian;
+            case 'Gluten Free':
+                return foodItem.GlutenFree;
+            case 'Keto':
+                return foodItem.Keto;
+            case 'Paleo':
+                return foodItem.Paleo;
+            default:
+                return true; // if no specific diet is specified, no filtering is done
+        }
     });
 }
 
 function calculateMacronutrientNeeds(goal) {
-    // Your logic to calculate the user's macronutrient needs based on their goal and workout routine
-    // You might need to consider factors such as the user's body weight, activity level, etc.
-    // ...
+    // Here's a placeholder logic to calculate the user's macronutrient needs based on their goal
+    let protein, carbohydrates, fats;
+
+    switch (goal) {
+        case 'Fat Loss':
+            fats <= 40;
+            break;
+        case 'Muscle Gain':
+            protein >= 20;
+            break;
+        case 'Maintain Composition':
+        default:
+            protein >= 30;
+            fats <= 40;
+    }
 
     return {
-        // protein: ...,
-        // carbohydrates: ...,
-        // fats: ...
+        protein,
+        fats
     };
 }
 
 function rankFoodItems(foodItems, macronutrientNeeds) {
     // Rank the food items based on how well they match the user's macronutrient needs
-    // ...
-
-    return foodItemsRanked;
+    return foodItems
+        .map(foodItem => ({
+            ...foodItem,
+            score: Math.abs(foodItem.Protein - macronutrientNeeds.protein)
+                  + Math.abs(foodItem.Fat - macronutrientNeeds.fats)
+        }))
+        .sort((a, b) => a.score - b.score);
 }
 
 async function getRecommendations(goal, diet) {
-    // Fetch food items from the USDA API
-    const foodItems = await fetchFoodData('chicken'); // replace 'chicken' with the actual query
+    // Fetch food items from your database
+    const foodItems = await getFoodItems();
 
     // Filter food items based on the user's dietary preferences
     const filteredFoodItems = filterFoodItems(foodItems, diet);

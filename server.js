@@ -1,20 +1,13 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
-const { getNutritionRecommendations } = require('./backend/database');
 const {
   createUser,
   getUserById,
   updateUser,
   deleteUser
 } = require('./backend/database');
-const {
-  filterFoodItems,
-  calculateMacronutrientNeeds,
-  rankFoodItems,
-  getRecommendations
-} = require('./backend/recommendation');
-const { fetchFoodData } = require('./backend/usdaApi');  // Import the function
+const { getRecommendations } = require('./backend/recommendation');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -24,36 +17,15 @@ app.use(bodyParser.json());
 // Serve static files (HTML, CSS, JS) from the 'public' folder
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.get('/api/test', async (req, res) => {  // Test endpoint
+app.post('/api/recommendations', async (req, res) => {
   try {
-    const data = await fetchFoodData('chicken');
-    res.json(data);
+    const recommendations = await getRecommendations(req.body.goal, req.body.diet);
+    res.json(recommendations);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'An error occurred while fetching the data.' });
+    res.status(500).json({ error: 'An error occurred while processing the request.' });
   }
 });
-
-app.post('/api/recommendations', async (req, res) => {
-    try {
-      // Here we define a static food recommendation
-      const foodRecommendation = {
-        name: "Chicken Breast",
-        nutritionalValue: {
-          calories: 165,
-          protein: 31,
-          carbs: 0,
-          fats: 3.6
-        }
-      };
-  
-      // Send the static recommendation back to the client as a JSON object
-      res.json(foodRecommendation);
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ error: 'An error occurred while processing the request.' });
-    }
-  }); 
 
 app.post('/api/users', async (req, res) => {
   try {
